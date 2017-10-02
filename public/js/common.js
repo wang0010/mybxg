@@ -1,4 +1,4 @@
-define(["jquery","cookie"],function($){
+define(["jquery","template","cookie"],function($,template){
 
 	// NProgress.start();
 
@@ -34,6 +34,10 @@ define(["jquery","cookie"],function($){
 	// JSON.parse(loginInfo) 把字符串在转换为对象
 	loginInfo = loginInfo && JSON.parse(loginInfo)
     // 设置用户的头像信息
-	$(".aside .profile img").attr("src",loginInfo.tc_avatar)
-	$(".aside .profile h4").attr(loginInfo.tc_name)
+	// $(".aside .profile img").attr("src",loginInfo.tc_avatar)
+	// $(".aside .profile h4").attr(loginInfo.tc_name)
+	// 动态渲染 头像信息
+	var tpl = "<div class='avatar img-circle'><img src='{{tc_avatar}}'></div><h4>{{tc_name}}</h4>";
+	var html = template.render(tpl,loginInfo)
+	$(".aside .profile").html(html)
 })
