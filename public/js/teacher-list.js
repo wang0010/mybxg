@@ -1,4 +1,4 @@
-define(["jquery","template"],function($,template){
+define(["jquery","template","bootstrap"],function($,template){
    $.ajax({
    	  type:"get",
    	  url:"/api/teacher",
@@ -30,6 +30,24 @@ define(["jquery","template"],function($,template){
    	  				}
    	  			}
    	  		})
+   	  	});
+
+   	  	//查看功能
+   	  	$(".chak").click(function(){
+   	  		var td = $(this).parent();
+   	  		var tcId = td.attr("data-csId");
+   	  		$.ajax({
+   	  			type:"get",
+   	  			url:"/api/teacher/view",
+   	  			data:{tc_id:tcId},
+   	  			dataType:"json",
+   	  			success:function(data){
+   	  				// 解析页面，渲染数据
+   	  				var html = template("chakTpl",data.result);
+   	  				$("#chakInfo").html(html);
+   	  				$("#teacherModal").modal();
+   	  			}
+   	  		});
    	  	});
    	  }
    });
